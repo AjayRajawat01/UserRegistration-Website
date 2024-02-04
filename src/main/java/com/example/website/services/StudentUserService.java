@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentUserService implements UserService{
+public class StudentUserService implements UserService {
 
     @Autowired
     User studentUser;
-
 
 
     @Override
@@ -18,9 +17,14 @@ public class StudentUserService implements UserService{
     }
 
     @Override
-    public boolean signUp(String name, String gender, String location, String college) {
+    public int signUp(String name, String gender, String location, String college) {
         boolean isStudentCreated = studentUser.createUser(name, gender, location, college);
-        studentUser.saveUser();
-        return isStudentCreated;
+        if (isStudentCreated) {
+            return studentUser.saveUser();
+        } else {
+            return -1;
+        }
+//        return isStudentCreated;
+
     }
 }
